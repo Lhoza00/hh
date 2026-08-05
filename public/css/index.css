@@ -1,0 +1,1102 @@
+@import url('global.css');
+@import url('client.css');
+.hero .container{
+    display: flex;
+    justify-content: space-between;
+}
+.hero_container{
+    height: 100%;
+}
+.hero_card{
+    padding-top: 4vh;
+    width: 39vw;  
+}
+.hero_image{
+    width: 60vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    position: relative;
+    height: 60vh;   
+}
+.hero_header{
+    font-size: 4rem;
+    color: black;
+    text-decoration: none;
+    line-height: default;
+    font-weight:900;
+    width: 35vw;   
+}
+.hero_text{
+    display: flex;
+    padding-top: 20px;   
+    width: 33vw;
+}
+.hero_btn{
+    margin: 20px;
+    width: 30vw;
+    display: flex;
+    justify-content: space-between;   
+}
+.hero_btn button{
+    width: 12vw;
+    height: 7vh;
+    border-radius: 7px;
+    border-width: 1px;
+}
+.hero_text p{
+    font-size: 22px;
+    line-height: 5vh;
+}
+.servicesContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#OurServices{
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    padding: 1rem;
+}
+.DivServices{
+    border: 2px solid var(--Main);
+    background-color: var(--Tertiary);
+    width: 18vw;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.serviceSubTitle{
+    text-align: center;
+    padding: 7px;
+}
+.DivServices p{
+    padding-left: 7px;
+}
+#UMB{
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    padding: 10px 0;
+    padding-bottom: 1rem;
+}
+.BenefitContainer .container{
+    display: flex;
+    justify-content: space-between;
+}
+.BenefitContainer .container .text_container{
+    width: auto;
+    height: auto;
+    padding-top: 20px;
+    padding-right: 7rem;
+    margin: 0 0rem;
+}
+#secondBenefitContainer .container .text_container{
+    width: auto;
+    height: auto;
+    padding-top: 20px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin: 0 0rem;
+}
+.text_container h1{
+    padding-bottom: 20px;
+    color: var(--Main);
+}
+.text_container ul li{
+    padding-top: 10px;
+    margin-left:20px
+}
+.CircleImage{
+    width: 20vw;
+    height: 40vh;
+    float: left;
+    border-radius: 50%;
+    border: 2px solid #211C1D;
+    margin: 0 3rem;
+}
+.firstBenefitContainer .CircleImage{
+    border: 0px solid beige
+}
+.News .container{
+    height: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.News .container h2{
+    text-align: center;
+}
+.backgroundcard{
+    width: 44vw;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 4rem;   
+}
+.DivNews{
+    margin-bottom: 0rem;
+    justify-content: space-evenly;
+    align-items: center;
+    justify-content: center;
+    display: flex;   
+}
+#NewsEmail{
+    height: 2rem;
+    width: 14rem;
+    border-radius: 8px;
+    border: 1px solid black;
+    margin: 0.5rem 0;
+}
+.DivNews button{
+    border-radius: 8px;
+    border-width: 1px;
+    height: 2rem;
+    width: 5rem;
+    margin: 0.5rem;
+    margin-left: 2rem;   
+}
+/*ContactPage*/
+#contact
+.section_contact .container{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.cardContact{
+    width: 50%;
+    height: auto;
+    margin: 30px 0;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 17px;
+}
+.contactTitle{
+    font-size: 30px;
+    font-weight: 700;
+    padding: 10px 0;   
+}
+.wording{
+    font-size: 20px;
+    padding-top: 30px;
+}
+.cardpadding{
+    padding-left: 3rem;
+}
+.contacter{
+    width: 92%;
+    height: 2.7rem;
+    margin-top: 30px;
+    border-radius: 7px;
+    border-width: 1px;
+}
+
+.contactermessage{
+    height: 8rem;
+    width: 92%;   
+    margin-top: 30px;
+    border-radius: 7px;
+    border-width: 1px;
+}
+.contactermessage::placeholder{
+    text-align: left;
+    align-self: center;
+    line-height: 8;
+    padding-left: 20px;
+}
+.contacter::placeholder{
+    text-align: left;
+    padding-left: 20px;
+}
+.cardContact button{
+    width: 9rem;
+    height: 2rem;
+    margin: 0.6rem 0;
+    border-radius: 6px;
+    border-width: 1px;
+}
+.helpHeader{
+    font-size: 32px;
+    padding-top: 20px;
+}
+.Divhelp{
+    display: flex;
+    width: 100%;  
+    height: 160px;
+    justify-content: space-between;
+}
+.HelpDiv1{
+    width: 50%;
+}
+.Imgquestion{
+    width: 30%;
+    display: block;
+    margin-bottom: 1rem;
+    position: relative;
+    left: -30;
+    bottom: 10;   
+}
+.HelpPar{
+    font-size: 26px;
+    padding-top: 16px;
+}
+.Divhelp .HelpDiv1 button{
+    width: 180px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+.ContactAddress{
+    font-size: 20px;
+    padding-top: 10px;
+}
+/*SignUp*/
+.SignSection .container{
+    justify-content: space-between;
+    display: flex;
+}
+.DetailsDivContainer{
+    width: 45%;
+    height: auto;
+    min-height: 100vh;
+    padding: 1rem;
+}
+.MemOptionContainer{
+    width: 45%;
+    padding: 1rem;
+    min-height: max-content;
+}
+.OfferPrice{
+    place-self: center;
+    padding: 0.5rem 0;
+    border-radius: 9px;
+    height: 70%;
+}
+.OfferPrice hr{
+    border: 1px solid var(--Main);
+    padding: 0;
+}
+.itemPrice{
+    background-color: var(--Primary);
+    margin: 0.8rem auto;
+    border-radius: 9px;  
+    width: 90%;
+}
+.OfferPrice {
+    list-style-type: none;
+    padding: 0 auto;
+    width: 90%;
+    height: auto;
+}  
+.OfferPrice li {
+    height: auto;
+    padding: 0 0.5rem;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+} 
+.OfferPrice input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+} 
+.OfferPrice input[type="radio"] {
+    cursor: pointer;
+    opacity: 0.01;
+    z-index: 100;
+}
+.OfferPrice input[type="radio"]:checked+.itemPrice,
+.Checked+.itemPrice {
+    border-width: 3px;
+    border-color: var(--Main);
+    box-shadow: 0.2rem 0.2rem 1rem 0 var(--Main);
+}
+.OfferPrice .itemPrice {
+    border: 1px solid var(--Main);
+    z-index: 90;
+} 
+.itemPrice:hover {
+    background: #DDD;
+}
+.itemPrice .memPrice{
+    width: 95%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 9px;
+    background-color: #ffff;
+    padding: 0 1rem;
+    padding-top: 0.3rem;
+    margin: 0.5rem 0.5rem;
+}
+.itemPrice .memData p{
+    padding: 0 0.8rem;
+    line-height: 1.8;
+}
+.memData hr{
+    padding: 0;
+    margin: 0;
+}
+.form{
+    margin: 0 2.5vw;
+}
+.SignSection .container .card{
+    width: 90%;
+    height: max-content;
+    place-self: center;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    border-radius: 9px;
+}
+.SigninHeader{
+    font-size: 26px;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    font-weight: 600;
+}
+.card .form .UserDetails{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.input{
+    height: 5vh;
+    width: 100%;
+    padding-bottom: 0px;
+    font-size: 1rem;
+    text-align: left;
+    border-radius: 7px;
+    border-width: 1px;
+}
+.password-container {
+    display: flex;
+    justify-content: space-between;
+}
+#sgUserPassword{
+   width: 90%;
+}
+.password-container .toggle-password {
+    align-items: center;
+    font-size: 1.7rem;
+    display: inline-block;
+    cursor: pointer;
+    color: #555;
+}
+.toggle-password i{
+    align-items: center;
+    place-items: center;
+    margin: 0 auto;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+    margin: 0;
+    display: none;
+}
+.error{
+    display: block;
+    text-align: center;
+    background-color: tomato;
+    border: 2xp solid red;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
+.errorpassword{
+    display: none;
+    text-align: center;
+    background-color: tomato;
+    border: 2xp solid red;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.divButton{
+    display: flex;
+}
+.SocialsLoginOption{
+    width: 100%;   
+}
+.btnLoginOption, .btnLoginOption p:hover{
+    cursor: pointer;
+}
+.btnLoginOption{
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 3rem;
+    border: 1px solid black;
+    background-color: #ffff;
+    outline: none;
+    border-radius: 1.5rem;
+}
+.btnLoginOption .fa-facebook-f{
+    color: blue;
+    font-size: 1.5rem;
+    margin: 0 1rem;
+}
+.btnLoginOption .fa-google{
+    color: red;
+    font-size: 1.5rem;
+    margin: 0 1rem;
+}
+.fa-angle-down{
+    flex: right;
+    align-items: center;
+    font-size: 2rem;
+    margin: 0 0.5rem;
+    visibility: hidden;
+}
+.SignButton{
+    margin: 0.8rem auto;
+    width: 40%;
+    height: 7vh;
+    border-radius: 7px;
+    border-width: 1px;
+}
+.SocialsLoginOption a{
+    text-decoration: none;
+}
+.SocialsLoginOption{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 0.8rem;
+}
+.AlreadyLogged{
+    margin: 1rem 0;
+    width: 100%;
+}
+.AlreadyLogged a{
+    color: blue;
+    text-decoration: none;
+}
+#Login{
+    text-align: center;
+}
+.UserDetails #Message label{
+    z-index: 1111;
+    opacity: 1;
+}
+.PaymentCard{
+    border-radius: 9px;
+    width: 90%;
+    display: none;
+    margin: 1rem 0;
+    place-self: center;
+    justify-content: center;
+    padding:  0.5rem 1rem;
+}
+.paymentcard input{
+    width: 100%;
+    margin: 0rem auto;
+    margin-bottom: 0;
+    width: 100%;
+    height: 5vh;
+    
+    font-size: 1rem;
+    outline: none;
+    border-radius: 7px;
+    border-width: 1px;
+}
+.paymentcard .form .miniForm{
+    display: flex;
+    justify-content: space-between;
+}
+.flForm{
+    margin-top: 0.5rem;
+}
+.flForm:first-child{
+    padding-top: 0.5rem;
+}
+.paymentcard .form .miniForm .InputContainer{
+    width: 45%;
+    margin: 0.5rem 0;
+    display: block;
+}
+.paymentcard .form .miniForm .InputContainer input{
+    width: 100%;
+    height: 5vh;
+    
+    font-size: 1rem;
+    outline: none;
+    border-radius: 7px;
+    border-width: 1px;
+}
+/*LoginPage*/
+#LoginPage header .container .navbar a:last-child, 
+#SignUpPage header .container .navbar a:last-child{
+    display: none;
+}
+.joinSection .container .card{
+    background-color: var(--Substitute);
+}
+.LoginSection .container .card form .LoginHeader{
+    font-size: 26px;
+    margin: 1.5rem 0;
+    font-weight: 600;
+}
+.LoginSection .container, .joinSection .container{
+    height: 100%;
+    display: flex;
+    padding: 0.5rem 0;
+    align-items: center;
+    justify-content: center;
+}
+.LoginSection .container .card, .joinSection .container .card{
+    width: 40%;
+    height: auto;
+    max-height: auto;
+    padding-bottom: 2px;
+    margin: 5vh auto;
+    justify-content: center;
+    border-radius: 17px;
+}
+.password{
+    display: flex;
+    padding: 0.2rem;
+    margin: 1rem 0;
+    margin-bottom: 0;
+    justify-content: space-between;
+}
+#forgotEmail{
+    width: 50%;
+    height: 2rem;
+}
+.sectionForgotPassword .container form{
+    width: 80%;
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: column;
+}
+.sectionForgotPassword .container form h1{
+    margin: 0.5rem 0;
+}
+.sectionForgotPassword .container form label{
+    padding: 0 0.5rem;
+}
+.sectionForgotPassword .container form input, .sectionForgotPassword .container form button{
+    font-size: 1.3rem;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid black;
+}
+.sectionForgotPassword .container form button{
+    padding: 0 0.2rem;
+    width: 5rem;
+    margin: 0.3rem 0;
+}
+.sectionForgotPassword .container form button:hover{
+    font-size: 1.5rem;
+}
+.device{
+    display: flex;
+    padding: 0.2rem;
+    margin: 1rem 0;
+    margin-bottom: 0;
+}
+.forgot{
+    text-decoration: none;
+    text-align: right;
+    color: blue;
+}
+.LoginSection .container .card form .DivButton{
+    margin: 1rem 0;
+    margin-top: 0;
+}
+#createAccount{
+    margin: 1rem auto;
+    text-align: center;
+}
+#createAccount a{
+    text-decoration: none;
+    color: blue;
+}
+.RememberCheckbox{
+    margin-right: 1rem;
+}
+/*About Page*/
+.cardWhoWeAre{
+    background-color: var(--Tertiary);
+    width: 60%;
+    padding: 1rem;
+    border: 2px solid black;
+    margin-bottom: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1rem;
+}
+.sectionWhoWeAre{
+    background: url(backimage.png);
+}
+.sectionWhoWeAre .container{
+    height: 85vh;
+    display: flex;
+    align-items: center;
+}
+.cardWhoWeAre p{
+    text-align: center;
+    align-items: center;
+    font-size: x-large;
+}
+.AboutHeader{
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 800;
+    padding: 1rem;
+}
+.containerCardWhoWeAre h1{
+    font-size: 5rem;
+    padding-top: 0;
+}
+.MissionContainer{
+    width: 46%;
+}
+.cardMission{
+    background-color: var(--Tertiary);
+    align-items: center;
+    display: flex;
+    height: auto;
+    padding: 0.5rem;
+    margin: 0.7rem 0;
+    border-radius: 0.7rem;
+}
+.MissionImage{
+    padding: 0.5rem 0;
+    border: 0px solid black;
+    width: 53%;
+    height: 50vh;
+}
+.MissionImage img{
+    position: relative;
+    border-radius: 0.7rem;
+    width: 100%;
+    height: 100%;
+}
+.cardMission p{
+    text-align: center;
+    font-size: 1.5rem;
+}
+.MissionBox{
+    border: 0px solid black;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+.sectionAboutContact .container .ContactContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.divAboutContact, .cardAboutContact{
+    border: 0px solid black;
+    width: 50%;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+}
+.cardAboutContact{
+    display: flex;
+    align-items: center;
+}
+.cardAboutContact .backgroundcard{
+    width: 90%;
+    align-items: center; 
+}
+.backgroundcard h2{
+    text-align: center;
+}
+.sectionAboutContact .container .divAboutContact p,
+.sectionAboutContact .container .divAboutContact button{
+    font-size: 1.5rem;
+    text-align: center;
+    
+}
+#infoEmail, #contactPhoneNumber{
+    outline: none;
+    border-radius: 7px;
+    border: 1px solid black;
+    padding: 0.2rem;
+    width: auto;
+}
+.AboutCard{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+.AboutCard p{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 1280px){
+    .cardContact{
+        width: 60%;
+    }
+    .MemOptionContainer, .DetailsDivContainer{
+        
+        height: auto;
+    }
+    .SocialsLoginOption{
+        justify-content: space-between;
+    }
+    .SignSection .container .card{
+        height: auto;
+    }
+}
+@media (max-width: 1024px){
+    .hero_header{
+        line-height: 0.8;
+    }
+    .hero_text p{
+        line-height: 1;
+    }
+    .HeroSectionImage img{
+        width: 33vw;
+        height: 50vh;
+        right: 0rem;
+        text-align: right;
+        position: relative;
+    }
+    .section_services .container .servicesContainer{
+        align-items: flex-start;
+        flex-wrap: wrap;   
+    }
+    .DivServices{
+        width: 45%;
+        margin-bottom: 1rem;
+    }
+    .DivServices .ServiceSubTitle{
+        font-size: 1.3rem;
+        font-weight: 800;
+    }
+    .DivServices p{
+        font-size: 1rem;
+    }
+    .BenefitContainer{
+        justify-content: center;
+    }
+    .BenefitContainer .text_container{
+        width: 60vw;
+    }
+    /*SignUp Page*/
+    .DetailsDivContainer, .MemOptionContainer{
+        
+        width: 50%;
+    }   
+    .LoginSection .container .card{
+        width: 55%;
+    }
+    .memData{
+        display: content;
+    }
+    .btnLoginOption .fab{
+        margin: 0 0.5rem;
+    }
+    .CircleImage{
+        margin-top: 4%;
+    }
+    .BenefitContainer .container .text_container{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    #secondBenefitContainer .container .text_container{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .cardWhoWeAre{
+        width: 80%;
+    }
+    .sectionWhoWeAre .container{
+        height: 80%;
+    }
+    .containerCardWhoWeAre h1{
+        font-size: 3rem;
+    }
+    .SectionMission .container{
+        height: auto;
+    }
+    .MissionBox{
+        height: 100%;
+        display: inherit;
+    }
+    .MissionImage{
+        margin: 0 auto;
+        width: 80%;
+    }
+    .AboutCard{
+        margin-bottom: 1rem;
+        width: 90%;
+    }
+    .MissionContainer{
+        width: 80%;
+        margin: 0 auto;
+        display: inherit;
+    }
+    .cardMission{
+        height: auto;
+    }
+    .SectionAboutContact .container .ContactContainer{
+        display: inherit;
+    }
+    .divAboutContact, .cardAboutContact{
+        margin: 0 auto;
+        width: 90%;
+    }
+    .backgroundcard{
+        margin-top: 1rem;
+    }
+}
+@media (max-width: 768px){
+    .hero_header{
+        text-align: left;
+        font-size: 5rem;
+    }
+    .hero_card{
+        width:100%;
+    }
+    .hero_text{
+        width: 100%;
+    }   
+    .HeroSectionImage img{
+        display: none;
+    }
+    .hero_btn{
+        width: 45vw;
+    }
+    .hero_btn button{
+        width: 20vw;
+        height: 8vh;
+    }
+    .CircleImage{
+        margin-top: 12%;
+        width: 20vw;
+        height: 35vh;
+    }
+    .backgroundcard, .EditContainer{
+        width: 75%;
+    }
+    .cardContact{
+       width: 72%;
+    }
+    .navbar{
+        display: none;
+    }
+    /*SignUp Page*/
+    .DetailsDivContainer, .MemOptionContainer{
+        padding: 0.5rem 0;
+    }
+    .SignSection .container .card{
+        width: 95%;
+    }
+    .SignButton{
+        width: 100%;
+    }
+    .SocialsLoginOption{
+        display: inherit;
+        margin: 0;
+    }
+    .btnLoginOption{
+        margin: 0.3rem 0;
+    }
+    .itemPrice{
+        width: 90%;
+    }
+}
+@media (max-width: 648px){
+    .hero_header{
+        font-size: 3rem;
+    }
+    .hero_image{
+        display: none;
+    }
+    .Logo{
+        padding-right: 0;
+    }
+    .CircleImage{
+        opacity: 0.1;
+        z-index: -1;
+        display:none;
+    }
+    .backgroundcard{
+        width: 100%;
+        background-color: white;
+    }
+    .cardContact, .EditContainer{
+        width: 92%;
+     }
+    .LoginSection .container .card{
+        width: 80%;   
+    }
+    /*SignUp Page*/
+    .SignSection .container{
+        display: inherit;
+    }
+    .DetailsDivContainer,
+    .MemOptionContainer{
+        margin: 0 auto;
+        width: 100%;
+    }
+    .SignSection .container .card{
+        height: auto;
+        min-height: max-content;
+    }
+    .SignSection .container .card,
+    .SignSection .container .OfferPrice,
+    .PaymentCard{
+        width: 80%;
+        margin: 1rem 0;
+    }
+    .fa-angle-down{
+        visibility: visible;
+        margin: auto 1rem;
+    }
+    .SocialsLoginOption{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    /*About Page*/
+    .cardWhoWeAre{
+        width: 100%;
+    }
+    .sectionWhoWeAre .container{
+        height: 100%;
+        max-height: auto;
+        padding-top: 0.5rem;
+    }
+    .containerCardWhoWeAre h1{
+        font-size: 2.3rem;
+    }
+    .SectionMission .container{
+        height: auto;
+        
+    }
+    .MissionBox{
+        padding: 0;
+        height: 100%;
+        display: inherit;
+    }
+    .MissionImage{
+        margin: 0 auto;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .AboutCard{
+        width: 100%;
+    }
+    .MissionContainer{
+        width: 100%;
+        margin: 0 auto;
+        display: inherit;
+    }
+    .cardMission{
+        height: auto;
+    }
+    .SectionAboutContact .container .ContactContainer{
+        display: inherit;
+    }
+    .divAboutContact, .cardAboutContact,
+    .cardAboutContact .backgroundcard{
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+}
+@media (max-width: 475px){
+    .backgroundcard{
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        height: max-content;
+        
+    }
+    .backgroundcard h2{
+        font-size: 1.3rem;
+        width: max-content;
+    }
+    #UMB{
+        font-size: x-large;
+    }
+    .DivServices{
+        width: 95%;
+    }
+    .socials i{
+        font-size: 25px;
+        padding: 0 1px;
+    } 
+    .LoginHeader{
+        font-size: 22px;
+        font-weight: 700;
+        width: 100%;
+        margin-bottom: 0.6rem;
+    }
+    .LoginSection .container{
+        height: 90vh;
+        padding-bottom: 2rem;
+    }
+    .LoginSection .container .card{
+        width: 90%;      
+        margin-top: 0;
+    }
+    .SectionMission .container{
+        height: 100%;
+    }
+    .cardContact{
+        margin-left : 0;
+        margin-right: 0;
+        width: 100%;
+    }
+    .cardpadding{
+        padding: 0 0.5rem;
+    }
+    .imgquestion{
+        display: none;
+    }
+    .Divhelp{
+        height: 28vh;
+    }
+    .HelpDiv1{
+        width: 100%;
+        height: auto;
+    }
+    .helpHeader, .Divhelp{
+        text-align: center;
+        justify-content: center;
+    }
+    .contacter, .contactermessage, .cardpadding .Contactbtn{
+        width: 100%;
+    }
+    .SignSection .container .card, .SignSection .container .OfferPrice, .PaymentCard{
+        width: 100%;
+    }
+    .ContactContaine .divAboutContact{
+        font-size: 0.7rem;
+    }
+    .divNews{
+        display: inherit;
+    }
+    .divNews #NewsEmail, .divNews button{
+        display: flex;
+        margin-right: auto;
+        margin-left: auto;
+        width: 70%;
+    }
+    .divNews button{
+        align-items: center;
+        text-align: center;
+        padding: 0 4.25rem;
+    }
+}
+@media (max-width: 340px){
+    .hero_header{
+        font-size: 2.5rem;
+    }
+    #UMB{
+        font-size: large;
+    }
+    .LoginHeader{
+        font-size: 18px;
+    }
+    .LoginSection .container .card{
+        width: 80%;
+        max-height: 80vh;   
+    }
+}

@@ -49,6 +49,9 @@
         <a class="avatar-btn" href="profile" onclick="toggleUserMenu()">
             <i class="fa fa-user"></i>
         </a>
+        <a class="avatar-btn-notification" href="notification">
+            <i class="fa fa-bell"></i>
+        </a>
     </div>
 </header>
     

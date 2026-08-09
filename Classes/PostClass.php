@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+require_once __DIR__ . '/../app/models/index.php';
 class Post{
     private $error = "";
     private Models $models;
@@ -73,6 +75,7 @@ class Post{
      * word characters, dedupes, and caps the count so someone can't
      * paste in 500 "hashtags".
      */
+    
     private function parseHashTags($raw){
         if(trim($raw) === ''){
             return [];
@@ -211,12 +214,18 @@ PHP;
                 return "just now";
         }
     }
-
+    public function getProfilePost($user){
+        if(empty($user)){
+            return false;
+        }
+        $temp = $this->models->getUserByName($user);
+        return $this->models->getMyPosts($temp['userID']);
+    }
     public function getPost($userId){
         if(empty($userId)){
             return false;
         }
-        return $this->models->getRecentPosts(5);
+        return $this->models->getRecentPosts(10);
     }
 
     public function get_deletePost($postId){

@@ -1,5 +1,28 @@
 <?php
-class Profile{
+declare(strict_types=1);
+require_once __DIR__ . '/../app/models/index.php';
+class Profile
+{
+    private Models $model;
+
+    public function __construct()
+    {
+        $this->model = new Models();
+    }
+    public function getProfileId(string $userName){
+        $this->model->getUserNameById($userName);
+    }
+    public function getProfile(string $userName)
+    {
+        $userName = trim($userName);
+        $result = $this->model->getUserByName($userName) 
+            ?: $this->model->getUserByName($this->model->getUserNameById($userName));
+        if ($result) {
+            unset($result["ID"], $result["userID"]);
+        }
+        return $result;
+    }
+
     public $profileData = "";
     public function get_data($userId){
         $userId = addslashes($userId);
@@ -12,13 +35,6 @@ class Profile{
         }else{
             return false;
         }
-    }
-    public function getProfile($userName){
-        $DB = new Database();
-        $query = "SELECT * FROM userstats WHERE userName LIKE '%$userName%' ORDER BY userName";
-        $result = $DB->read($query);
-        //$row = $this->get_data($result[0]);
-        return $result ? $result : false;
     }
     public function getUserTag($userName){
         $DB = new Database();

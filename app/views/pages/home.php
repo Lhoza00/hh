@@ -4,6 +4,10 @@ if(empty($_SESSION['userID'])) {
     header("Location: index");
     exit;
 }
+require_once __DIR__ . '/../../../Classes/PostClass.php';
+print_r($_SESSION);
+$postObj = new Post();
+$userPosts = $postObj->getPost($_SESSION['userID']);
 ?>
 <!DOCTYPE html>
 <html lang="en" id="home">
@@ -29,8 +33,8 @@ if(empty($_SESSION['userID'])) {
     
     /* ── MAIN LAYOUT ── */
     main {
-        margin-top: var(--header-h);
-        margin-left: var(--sidebar-w);
+        margin-top: 2rem;
+        margin-left: 0;
         min-height: calc(100vh - var(--header-h));
         
         display: flex;
@@ -46,105 +50,14 @@ if(empty($_SESSION['userID'])) {
         display: none;
     }
 
-    /* ── POST COMPOSER ── */
-    .post-composer {
-        background: var(--Secondary);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 1rem;
-        margin-bottom: 1.25rem;
-        display: none;
-        animation: slideDown 0.3s ease;
-    }
-    .post-composer.active { display: block; }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .composer-top {
-        display: flex;
-        gap: 0.75rem;
-        align-items: flex-start;
-    }
-    .composer-avatar {
-        width: 38px; height: 38px;
-        border-radius: 50%;
-        background: var(--Primary);
-        border: 2px solid var(--border);
-        display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0;
-    }
-    .composer-avatar i { color: var(--muted); }
-    .composer-textarea {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: var(--ink);
-        font-family: 'DM Sans', sans-serif;
-        font-size: 1rem;
-        resize: none;
-        min-height: 72px;
-        line-height: 1.6;
-    }
-    .composer-textarea::placeholder { color: var(--muted); }
-
-    .composer-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-top: 0.75rem;
-        border-top: 1px solid var(--border);
-        margin-top: 0.75rem;
-    }
-    .composer-tools {
-        display: flex;
-        gap: 0.25rem;
-    }
-    .tool-btn {
-        width: 34px; height: 34px;
-        border-radius: var(--radius-sm);
-        border: none;
-        background: transparent;
-        color: var(--muted);
-        cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1rem;
-        transition: color 0.2s, background 0.2s;
-    }
-    .tool-btn:hover { color: var(--Main); background: rgba(255,110,0,0.08); }
-    .tool-btn label { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
-    .tool-btn input[type=file] { display: none; }
-
-    .char-count {
-        font-size: 0.78rem;
-        color: var(--muted);
-    }
-
-    .btn-submit-post {
-        background: var(--Main);
-        color: var(--Primary);
-        border: none;
-        border-radius: 99px;
-        padding: 0.45rem 1.25rem;
-        font-family: 'Syne', sans-serif;
-        font-weight: 700;
-        font-size: 0.85rem;
-        cursor: pointer;
-        transition: background 0.2s, transform 0.15s;
-    }
-    .btn-submit-post:hover {
-        background: var(--Substitute);
-        transform: translateY(-1px);
-    }
+    
 
     /* ── FEED TABS ── */
     .feed-tabs {
         display: flex;
         gap: 0;
         border-bottom: 1px solid var(--border);
+        
         margin-bottom: 1.25rem;
     }
     .feed-tab {
@@ -163,166 +76,8 @@ if(empty($_SESSION['userID'])) {
         border-bottom-color: var(--Main);
     }
 
-    /* ── POST CARD ── */
-    .post-card {
-        background: var(--Primary);
-        border: 1px solid black;
-        border-radius: var(--radius);
-        margin-bottom: 1rem;
-        overflow: hidden;
-        transition: border-color 0.2s, transform 0.2s;
-        animation: fadeUp 0.4s ease both;
-    }
-    .post-card:hover { border-color: var(--border-hover); }
-
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    .post-card:nth-child(1) { animation-delay: 0.05s; }
-    .post-card:nth-child(2) { animation-delay: 0.1s; }
-    .post-card:nth-child(3) { animation-delay: 0.15s; }
-    .post-card:nth-child(4) { animation-delay: 0.2s; }
-    .post-card:nth-child(5) { animation-delay: 0.25s; }
-
-    .post-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.9rem 1rem 0.6rem;
-    }
-    .post-user {
-        display: flex;
-        align-items: center;
-        gap: 0.65rem;
-    }
-    .post-avatar {
-        width: 38px; height: 38px;
-        border-radius: 50%;
-        background: var(--Secondary);
-        border: 2px solid var(--border);
-        display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0;
-        overflow: hidden;
-    }
-    .post-avatar i { color: var(--muted); font-size: 1.1rem; }
-    .post-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-    .post-user-info { display: flex; flex-direction: column; }
-    .post-username {
-        font-family: 'Syne', sans-serif;
-        font-weight: 700;
-        font-size: 0.92rem;
-        color: var(--ink);
-        text-decoration: none;
-    }
-    .post-username:hover { color: var(--Main); }
-    .post-meta {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.77rem;
-        color: var(--muted);
-    }
-    .post-tag {
-        background: rgba(255,110,0,0.1);
-        color: var(--Main);
-        border-radius: 99px;
-        padding: 0.1rem 0.5rem;
-        font-size: 0.72rem;
-        font-weight: 500;
-    }
-
-    .post-options {
-        color: var(--muted);
-        cursor: pointer;
-        width: 30px; height: 30px;
-        display: flex; align-items: center; justify-content: center;
-        border-radius: var(--radius-sm);
-        transition: color 0.2s, background 0.2s;
-    }
-    .post-options:hover { color: var(--ink); background: var(--Secondary); }
-
-    .post-body {
-        padding: 0 1rem 0.75rem;
-        font-size: 0.97rem;
-        line-height: 1.65;
-        color: var(--muted);
-    }
-    .post-body .mention { color: var(--Main); font-weight: 500; }
-    .post-body .hashtag { color: var(--Substitute); }
-
-    .post-image {
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover;
-        display: block;
-        background: var(--Secondary);
-    }
-
-    .post-actions {
-        display: flex;
-        align-items: center;
-        border-top: 1px solid var(--border);
-        padding: 0.5rem 0.75rem;
-        gap: 0.25rem;
-    }
-    .action-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        padding: 0.4rem 0.6rem;
-        border-radius: var(--radius-sm);
-        border: none;
-        background: transparent;
-        color: var(--muted);
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.85rem;
-        cursor: pointer;
-        transition: color 0.2s, background 0.2s;
-    }
-    .action-btn:hover { color: var(--ink); background: var(--Secondary); }
-    .action-btn.liked { color: var(--Main); }
-    .action-btn.liked i { color: var(--Main); }
-    .action-btn i { font-size: 0.95rem; transition: transform 0.15s; }
-    .action-btn:hover i { transform: scale(1.15); }
-    .action-spacer { flex: 1; }
-
     /* ── COMMENT INPUT ── */
-    .comment-section {
-        padding: 0.6rem 1rem;
-        border-top: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        gap: 0.65rem;
-    }
-    .comment-input {
-        flex: 1;
-        background: var(--Secondary);
-        border: 1px solid var(--border);
-        border-radius: 99px;
-        padding: 0.4rem 1rem;
-        color: var(--ink);
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.88rem;
-        outline: none;
-        transition: border-color 0.2s;
-    }
-    .comment-input::placeholder { color: var(--muted); }
-    .comment-input:focus { border-color: var(--Main); }
-    .comment-submit {
-        width: 32px; height: 32px;
-        background: var(--Main);
-        border: none;
-        border-radius: 50%;
-        color: var(--Primary);
-        cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 0.8rem;
-        transition: background 0.2s, transform 0.15s;
-        flex-shrink: 0;
-    }
-    .comment-submit:hover { background: var(--Substitute); transform: scale(1.08); }
+    
 
     /* ── RIGHT COLUMN WIDGETS ── */
     .widget {
@@ -451,69 +206,7 @@ if(empty($_SESSION['userID'])) {
         transition: margin-left 0.3s ease;
     }
 
-    /* ── DIALOG ── */
-    .dialog-overlay {
-        display: none;
-        position: fixed; inset: 0;
-        background: rgba(0,0,0,0.4);
-        backdrop-filter: blur(4px);
-        z-index: 200;
-        align-items: center;
-        justify-content: center;
-    }
-    .dialog-overlay.active { display: flex; }
-    .dialog-box {
-        background: var(--Primary);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        width: 90%;
-        max-width: 380px;
-        padding: 1.25rem;
-        animation: slideDown 0.25s ease;
-    }
-    .dialog-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.75rem;
-    }
-    .dialog-header h3 {
-        font-family: 'Syne', sans-serif;
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--ink);
-    }
-    .dialog-close {
-        background: none;
-        border: none;
-        color: var(--muted);
-        cursor: pointer;
-        font-size: 1.1rem;
-        transition: color 0.2s;
-    }
-    .dialog-close:hover { color: var(--Main); }
-    .dialog-search input {
-        width: 100%;
-        background: var(--Secondary);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 0.8rem;
-        color: var(--ink);
-        font-family: 'DM Sans', sans-serif;
-        font-size: 0.9rem;
-        outline: none;
-        margin-bottom: 0.5rem;
-    }
-    .dialog-search input:focus { border-color: var(--Main); }
-    .dialog-list-item {
-        padding: 0.5rem 0.4rem;
-        font-size: 0.95rem;
-        cursor: pointer;
-        border-radius: var(--radius-sm);
-        transition: background 0.15s;
-        color: var(--ink);
-    }
-    .dialog-list-item:hover { background: var(--Secondary); color: var(--Main); }
+    
 
     /* ── TOAST ── */
     .toast {
@@ -537,88 +230,17 @@ if(empty($_SESSION['userID'])) {
         opacity: 1;
     }
 
-    /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--Secondary); }
-    ::-webkit-scrollbar-thumb { background: var(--Substitute); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--Main); }
-
-
-    .bottom-nav {
-        display: none;
-        position: fixed;
-        bottom: 0; left: 0; right: 0;
-        background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(20px);
-        border-top: 0px solid limegreen;
-        justify-content: space-around;
-
-        z-index: 98;
-        padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
-    }
-    .bottom-nav ul {
-        list-style: none;
-        display: flex;
-        width: 100%;
-        border: 0px solid red;
-        justify-content: space-around;
-        align-items: center;
-    }
-    .bottom-nav ul li a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.2rem;
-        color: var(--muted);
-        text-decoration: none;
-        font-size: 0.65rem;
-        padding: 0.3rem 0.8rem;
-        border-radius: var(--radius-sm);
-        transition: color 0.2s;
-    }
-    .bottom-nav ul li a i { font-size: 1.2rem; }
-    .bottom-nav ul li a.active, .bottom-nav ul li a:hover { color: var(--Main); }
 </style>
 <body>
 
 <!-- HEADER -->
 <?php require_once __DIR__ . '/../layout/header.php';?>
 <?php require_once __DIR__ . '/../components/sidebar.php';?>
-
 <!-- MAIN -->
 <main>
     <div class="feed-column">
-       
         <!-- Post Composer -->
-        <form method="POST" action="home.php" enctype="multipart/form-data">
-            <div class="post-composer" id="postComposer">
-                <div class="composer-top">
-                    <div class="composer-avatar"><i class="fa fa-user"></i></div>
-                    <textarea
-                        class="composer-textarea"
-                        name="post"
-                        maxlength="255"
-                        placeholder="What's on your mind?"
-                        rows="3"
-                        oninput="updateCharCount(this)"></textarea>
-                </div>
-                <div class="composer-footer">
-                    <div class="composer-tools">
-                        <button type="button" class="tool-btn" onclick="openDialog('hashTagDialog')" title="Add hashtag">
-                            <i class="fa-solid fa-hashtag"></i>
-                        </button>
-                        <button type="button" class="tool-btn" onclick="openDialog('userTagDialog')" title="Tag user">
-                            <i class="fa-solid fa-user-tag"></i>
-                        </button>
-                        <button type="button" class="tool-btn" title="Add image">
-                            <label><input type="file" name="file" accept="image/*"><i class="fa-solid fa-image"></i></label>
-                        </button>
-                    </div>
-                    <span class="char-count" id="charCount">255</span>
-                    <button type="submit" name="btnSavePost" class="btn-submit-post">Publish</button>
-                </div>
-            </div>
-        </form>
+        <?php require_once __DIR__ . '/../components/postComposer.php'; ?>
 
         <!-- Feed Tabs -->
         <div class="feed-tabs">
@@ -626,7 +248,24 @@ if(empty($_SESSION['userID'])) {
             <div class="feed-tab" onclick="setTab(this)">Following</div>
             <div class="feed-tab" onclick="setTab(this)">Partners</div>
         </div>
-
+        <?php foreach ($userPosts as $row_post):?><?php
+                            $postId       = $row_post["postId"];
+                            $name         = $row_post["userName"];
+                            $hashTags     = $row_post["hashTags"];
+                            $userTags     = $row_post["userTags"];
+                            $content         = $row_post["content"];
+                            $image        = $row_post["image"];
+                            $comments     = $row_post["comments"];
+                            $promotes     = $row_post["promotes"];
+                            $shares       = $row_post["shares"];
+                            $created_at = $row_post["created_at"];
+                            
+                            $hashTags = !empty($hashTags) ? explode(",", $hashTags) : [];
+                            $userTags = !empty($userTags) ? explode(",", $userTags) : [];
+                        ?>
+                        <?php require "post.php"?>
+                        <?php endforeach;?>
+        <?php require_once "post.php"?>
         <!-- Demo Posts -->
         <div class="post-card">
             <div class="post-header">
@@ -787,17 +426,8 @@ if(empty($_SESSION['userID'])) {
 
     </div-->
 </main>
+<?php require_once __DIR__ . '/../components/bottom-navbar.php';?>
 
-<!-- BOTTOM NAV (mobile) -->
-<nav class="bottom-nav">
-    <ul>
-        <li><a href="home" class="active"><i class="fa fa-house"></i>Home</a></li>
-        <li><a href="affiliate"><i class="fa-solid fa-star"></i>Partners</a></li>
-        <li><a href="#" onclick="toggleComposer(); return false;"><i class="fa-solid fa-plus-circle"></i>Post</a></li>
-        <li><a href="leaderboard"><i class="fa fa-trophy"></i>Top</a></li>
-        <li><a href="profile"><i class="fa fa-user"></i>Profile</a></li>
-    </ul>
-</nav>
 
 <!-- DIALOGS -->
 <div class="dialog-overlay" id="hashTagDialog" onclick="closeDialogOnOverlay(event, 'hashTagDialog')">
@@ -847,19 +477,6 @@ if(empty($_SESSION['userID'])) {
 </footer>
 <script>
 
-    /* ── Composer ── */
-    const composer = document.getElementById('postComposer');
-    function toggleComposer() {
-        composer.classList.toggle('active');
-        if (composer.classList.contains('active')) {
-            composer.querySelector('textarea').focus();
-        }
-    }
-
-    function updateCharCount(el) {
-        document.getElementById('charCount').textContent = 255 - el.value.length;
-    }
-
     /* ── Feed Tabs ── */
     function setTab(el) {
         document.querySelectorAll('.feed-tab').forEach(t => t.classList.remove('active'));
@@ -884,19 +501,7 @@ if(empty($_SESSION['userID'])) {
     }
 
     /* ── Comment Toggle ── */
-    function toggleComment(btn) {
-        const card = btn.closest('.post-card');
-        const section = card.querySelector('.comment-section');
-        const isVisible = section.style.display !== 'none';
-        section.style.display = isVisible ? 'none' : 'flex';
-        if (!isVisible) section.querySelector('input').focus();
-    }
-
-    /* ── Copy Link / Share ── */
-    function copyLink() {
-        navigator.clipboard.writeText(window.location.href).catch(() => {});
-        showToast('Link copied to clipboard!');
-    }
+    
 
     /* ── Follow ── */
     function toggleFollow(btn) {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 require_once __DIR__ . '/../../config/database.php';
 
@@ -82,12 +83,14 @@ class Models {
 
         return $result[0]['userName'] ?? false;
     }
-
-    /**
-     * Given an array of candidate userIDs (untrusted, e.g. from a hidden
-     * form field), returns only the ones that actually exist. Use this
-     * before saving user-tags — never persist client-supplied IDs as-is.
-     */
+    public function getUserByName($userName)
+    {
+        $result = $this->DB->read(
+            "SELECT * FROM userStats WHERE userName = ? LIMIT 1",
+            [$userName]
+        );
+        return $result[0];
+    }
     public function getExistingUserIds(array $userIds)
     {
         if (empty($userIds)) {
@@ -106,7 +109,7 @@ class Models {
     public function insertPost($userId, $userName, $hashTags, $userTags, $postId, $post, $image, $hasImage)
     {
         return $this->DB->save(
-            "INSERT INTO userposts(userId, userName, hashTags, userTags, postid, post, image, hasImage)
+            "INSERT INTO posts(userId, userName, hashTags, userTags, postid, post, image, hasImage)
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             [$userId, $userName, $hashTags, $userTags, $postId, $post, $image, $hasImage]
         );
@@ -115,13 +118,17 @@ class Models {
     public function getRecentPosts($limit = 5)
     {
         $limit = (int) $limit; // some drivers reject LIMIT as a bound param, so cast + interpolate
-        return $this->DB->read("SELECT * FROM userposts ORDER BY dateUpload DESC LIMIT {$limit}") ?: false;
+        return $this->DB->read("SELECT * FROM posts LIMIT {$limit}") ?: false;
+    }
+    public function getMyPosts($user){
+        $limit = (int) 20;
+        return $this->DB->read("SELECT * FROM posts WHERE userId= ?", [$user]) ?: false;
     }
 
     public function getPostById($postId)
     {
         $result = $this->DB->read(
-            "SELECT * FROM userposts WHERE postID = ? LIMIT 1",
+            "SELECT * FROM posts WHERE postID = ? LIMIT 1",
             [$postId]
         );
 
@@ -130,14 +137,14 @@ class Models {
 
     public function deletePostAndEngagement($postId)
     {
-        $this->DB->save("DELETE FROM userposts WHERE postID = ?", [$postId]);
+        $this->DB->save("DELETE FROM posts WHERE postID = ?", [$postId]);
         $this->DB->save("DELETE FROM engagement WHERE postID = ?", [$postId]);
     }
 
     public function getUserPostsByUserId($userId)
     {
         $result = $this->DB->read(
-            "SELECT * FROM userposts WHERE userId = ? LIMIT 1",
+            "SELECT * FROM posts WHERE userId = ? LIMIT 1",
             [$userId]
         );
 
@@ -185,7 +192,7 @@ class Models {
 
         $op = $increment ? '+' : '-';
         return $this->DB->save(
-            "UPDATE userposts SET {$column} = {$column} {$op} 1 WHERE postID = ?",
+            "UPDATE posts SET {$column} = {$column} {$op} 1 WHERE postID = ?",
             [$postId]
         );
     }

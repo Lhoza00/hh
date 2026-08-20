@@ -13,7 +13,7 @@ class Models {
     public function findByLogin($login)
     {
         $result = $this->DB->read(
-            'SELECT * FROM userdetails WHERE userName = ? OR userEmail = ? LIMIT 1',
+            'SELECT * FROM userlogin WHERE userName = ? OR userEmail = ? LIMIT 1',
             [$login, $login]
         );
 
@@ -28,7 +28,7 @@ class Models {
     public function userNameExists($userName)
     {
         $result = $this->DB->read(
-            "SELECT 1 FROM userdetails WHERE userName = ? LIMIT 1",
+            "SELECT 1 FROM userlogin WHERE userName = ? LIMIT 1",
             [$userName]
         );
 
@@ -37,7 +37,7 @@ class Models {
     public function emailExists($email)
     {
         $result = $this->DB->read(
-            "SELECT 1 FROM userdetails WHERE userEmail = ? LIMIT 1",
+            "SELECT 1 FROM userlogin WHERE userEmail = ? LIMIT 1",
             [$email]
         );
 
@@ -46,8 +46,8 @@ class Models {
     public function createUser(array $user)
     {
         return $this->DB->save(
-            "INSERT INTO userdetails
-            (userID, userName, fullName, userEmail, userPassword, subType)
+            "INSERT INTO userlogin
+            (userID, userName, fullName, userEmail, userPassword, status)
             VALUES (?, ?, ?, ?, ?, ?)",
             [
                 $user['userId'],
@@ -55,14 +55,14 @@ class Models {
                 $user['fullName'],
                 $user['email'],
                 $user['passwordHash'],
-                $user['subType']
+                $user['status']
             ]
         );
     }
     public function createUserStats($userId, $userName)
     {
         return $this->DB->save(
-            "INSERT INTO userstats
+            "INSERT INTO userprofile
             (userID, userName, userLevel, xpLevel, totalXP, bioStatement)
             VALUES (?, ?, 0, 0, 0, '')",
             [
@@ -77,7 +77,7 @@ class Models {
     public function getUserNameById($userId)
     {
         $result = $this->DB->read(
-            "SELECT userName FROM userdetails WHERE userID = ? LIMIT 1",
+            "SELECT userName FROM userlogin WHERE userID = ? LIMIT 1",
             [$userId]
         );
 
@@ -86,7 +86,7 @@ class Models {
     public function getUserByName($userName)
     {
         $result = $this->DB->read(
-            "SELECT * FROM userStats WHERE userName = ? LIMIT 1",
+            "SELECT * FROM userprofile WHERE userName = ? LIMIT 1",
             [$userName]
         );
         return $result[0];
@@ -99,7 +99,7 @@ class Models {
 
         $placeholders = implode(',', array_fill(0, count($userIds), '?'));
         $result = $this->DB->read(
-            "SELECT userID FROM userdetails WHERE userID IN ($placeholders)",
+            "SELECT userID FROM userlogin WHERE userID IN ($placeholders)",
             $userIds
         );
 
@@ -135,10 +135,9 @@ class Models {
         return $result[0] ?? false;
     }
 
-    public function deletePostAndEngagement($postId)
+    public function deletePost($postId)
     {
         $this->DB->save("DELETE FROM posts WHERE postID = ?", [$postId]);
-        $this->DB->save("DELETE FROM engagement WHERE postID = ?", [$postId]);
     }
 
     public function getUserPostsByUserId($userId)
@@ -151,97 +150,76 @@ class Models {
         return $result[0] ?? false;
     }
 
-    public function getEngagement($postId, $type)
+    public function getSettings($userId){
+        $result = $this->DB->read(
+            "SELECT * FROM settings WHERE userId = ? LIMIT 1",
+            [$userId]
+        );
+        return $result[0] ?? false;
+
+    }
+
+    // --- Notification-related methods (used by the Notification class) ---
+
+    public function insertNotification($notifId, $fromUserId, $toUserId, $type, $postId, $isRead = 0)
+    {
+        return $this->DB->save(
+            "INSERT INTO notifications (notifID, fromUserId, toUserId, type, postID, isRead)
+             VALUES (?, ?, ?, ?, ?, ?)",
+            [$notifId, $fromUserId, $toUserId, $type, $postId, $isRead]
+        );
+    }
+
+    public function getNotificationsByUserId($userId, $limit = 20)
+    {
+        $limit = (int) $limit; // some drivers reject LIMIT as a bound param, so cast + interpolate
+        return $this->DB->read(
+            "SELECT * FROM notifications WHERE toUserId = ? ORDER BY createdAt DESC LIMIT {$limit}",
+            [$userId]
+        ) ?: false;
+    }
+
+    public function getNotificationById($notifId)
     {
         $result = $this->DB->read(
-            "SELECT * FROM engagement WHERE postID = ? AND types = ? LIMIT 1",
-            [$postId, $type]
+            "SELECT * FROM notifications WHERE notifID = ? LIMIT 1",
+            [$notifId]
         );
 
         return $result[0] ?? false;
     }
 
-    public function updateEngagementUsers($postId, $type, $usersJson)
+    public function markNotificationRead($notifId, $userId)
     {
         return $this->DB->save(
-            "UPDATE engagement SET users = ? WHERE types = ? AND postID = ? LIMIT 1",
-            [$usersJson, $type, $postId]
+            "UPDATE notifications SET isRead = 1 WHERE notifID = ? AND toUserId = ? LIMIT 1",
+            [$notifId, $userId]
         );
     }
 
-    public function insertEngagement($postId, $type, $usersJson)
+    public function markAllNotificationsRead($userId)
     {
         return $this->DB->save(
-            "INSERT INTO engagement (types, postID, users) VALUES (?, ?, ?)",
-            [$type, $postId, $usersJson]
-        );
-    }
-
-    /**
-     * $column must already be whitelisted by the caller (Post::engage_post
-     * whitelists $postType before building it) — this is a second check,
-     * not the only one, since building SQL from any variable column name
-     * is a SQL-injection vector even when the value looks "internal".
-     */
-    public function adjustEngagementCount($postId, $column, $increment)
-    {
-        $allowedColumns = ['likes', 'loves', 'shares', 'promotes'];
-        if (!in_array($column, $allowedColumns, true)) {
-            return false;
-        }
-
-        $op = $increment ? '+' : '-';
-        return $this->DB->save(
-            "UPDATE posts SET {$column} = {$column} {$op} 1 WHERE postID = ?",
-            [$postId]
-        );
-    }
-}/*class Models
-{
-    public function findUser(string $login)
-    {
-        return $this->DB->read(
-            "SELECT * FROM userdetails
-             WHERE userName = ? OR email = ?
-             LIMIT 1",
-            [$login, $login]
-        )[0] ?? null;
-    }
-
-    public function updateSessionToken(
-        int $userId,
-        string $token,
-        string $expires
-    )
-    {
-        return $this->DB->save(
-            "UPDATE userdetails
-             SET sessionToken = ?, sessionExpires = ?
-             WHERE userId = ?",
-            [$token, $expires, $userId]
-        );
-    }
-
-    public function findBySessionToken(string $token)
-    {
-        return $this->DB->read(
-            "SELECT *
-             FROM userdetails
-             WHERE sessionToken = ?
-             AND sessionExpires > NOW()
-             LIMIT 1",
-            [$token]
-        )[0] ?? null;
-    }
-
-    public function clearSessionToken(int $userId)
-    {
-        return $this->DB->save(
-            "UPDATE userdetails
-             SET sessionToken = NULL,
-                 sessionExpires = NULL
-             WHERE userId = ?",
+            "UPDATE notifications SET isRead = 1 WHERE toUserId = ? AND isRead = 0",
             [$userId]
         );
     }
-} */
+
+    public function deleteNotification($notifId, $userId)
+    {
+        return $this->DB->save(
+            "DELETE FROM notifications WHERE notifID = ? AND toUserId = ? LIMIT 1",
+            [$notifId, $userId]
+        );
+    }
+
+    public function getUnreadNotificationCount($userId)
+    {
+        $result = $this->DB->read(
+            "SELECT COUNT(*) as cnt FROM notifications WHERE toUserId = ? AND isRead = 0",
+            [$userId]
+        );
+
+        return (int) ($result[0]['cnt'] ?? 0);
+    }
+}

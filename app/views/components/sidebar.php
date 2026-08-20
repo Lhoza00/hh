@@ -7,8 +7,8 @@
         <a href="affiliate"   class="nav-item"><i class="fa-solid fa-star"></i><span>Partners</span></a>
         <a href="feedback"    class="nav-item"><i class="fa-solid fa-circle-info"></i><span>Feedback</span></a>
         <div class="sidebar-spacer"></div>
-        <a href="Profile"     class="nav-item"><i class="fa fa-user"></i><span>Profile</span></a>
-        <a href="#" class="nav-item" ><i class="fa fa-gear"></i><span>Settings</span></a>
+        <a href="profile"     class="nav-item"><i class="fa fa-user"></i><span>Profile</span></a>
+        <a href="setting" class="nav-item" ><i class="fa fa-gear"></i><span>Settings</span></a>
         <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
             <i class="fa fa-angle-right"></i>
         </button>

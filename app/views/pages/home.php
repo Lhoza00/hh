@@ -4,9 +4,11 @@ if(empty($_SESSION['userID'])) {
     header("Location: index");
     exit;
 }
+require_once __DIR__ . '/../../../Classes/SettingClass.php';
 require_once __DIR__ . '/../../../Classes/PostClass.php';
 print_r($_SESSION);
 $postObj = new Post();
+$setting = new Setting();
 $userPosts = $postObj->getPost($_SESSION['userID']);
 ?>
 <!DOCTYPE html>
@@ -231,7 +233,7 @@ $userPosts = $postObj->getPost($_SESSION['userID']);
     }
 
 </style>
-<body>
+<body style="background: <?php echo $setting->get('background-color');?>;">
 
 <!-- HEADER -->
 <?php require_once __DIR__ . '/../layout/header.php';?>
@@ -358,73 +360,6 @@ $userPosts = $postObj->getPost($_SESSION['userID']);
         </div>
 
     </div>
-
-    <!-- RIGHT COLUMN --
-    <div class="right-column">
-
-        <!-- Streak --
-        <div class="widget">
-            <div class="widget-title">Your Streak</div>
-            <div class="streak-row">
-                <div>
-                    <div class="streak-num">7</div>
-                    <div class="streak-label">days in a row</div>
-                </div>
-                <div class="streak-flame">🔥</div>
-            </div>
-        </div>
-
-        <!-- Trending --
-        <div class="widget">
-            <div class="widget-title">Trending Tags</div>
-            <div class="trend-item">
-                <span class="trend-tag">#webdev</span>
-                <span class="trend-count">1.2k posts today</span>
-            </div>
-            <div class="trend-item">
-                <span class="trend-tag">#opensource</span>
-                <span class="trend-count">847 posts today</span>
-            </div>
-            <div class="trend-item">
-                <span class="trend-tag">#uxdesign</span>
-                <span class="trend-count">631 posts today</span>
-            </div>
-            <div class="trend-item">
-                <span class="trend-tag">#css</span>
-                <span class="trend-count">512 posts today</span>
-            </div>
-        </div>
-
-        <!-- Suggested --
-        <div class="widget">
-            <div class="widget-title">People to Follow</div>
-            <div class="suggested-user">
-                <div class="sug-avatar"><i class="fa fa-user"></i></div>
-                <div class="sug-info">
-                    <div class="sug-name">Mike Chen</div>
-                    <div class="sug-handle">@mike_builds</div>
-                </div>
-                <button class="btn-follow" onclick="toggleFollow(this)">Follow</button>
-            </div>
-            <div class="suggested-user">
-                <div class="sug-avatar"><i class="fa fa-user"></i></div>
-                <div class="sug-info">
-                    <div class="sug-name">Priya Sharma</div>
-                    <div class="sug-handle">@priya_ux</div>
-                </div>
-                <button class="btn-follow" onclick="toggleFollow(this)">Follow</button>
-            </div>
-            <div class="suggested-user">
-                <div class="sug-avatar"><i class="fa fa-user"></i></div>
-                <div class="sug-info">
-                    <div class="sug-name">David Lee</div>
-                    <div class="sug-handle">@dlee_dev</div>
-                </div>
-                <button class="btn-follow" onclick="toggleFollow(this)">Follow</button>
-            </div>
-        </div>
-
-    </div-->
 </main>
 <?php require_once __DIR__ . '/../components/bottom-navbar.php';?>
 
@@ -475,6 +410,8 @@ $userPosts = $postObj->getPost($_SESSION['userID']);
 <footer>
     © 2025 LinkSpam · <a href="feedback.php" style="color:var(--text-dim);text-decoration:none">Feedback</a> · <a href="#" style="color:var(--text-dim);text-decoration:none">Privacy</a>
 </footer>
+<script src="public/js/toggle_comment.js"></script>
+<script src="public/js/copy_link.js"></script>
 <script>
 
     /* ── Feed Tabs ── */

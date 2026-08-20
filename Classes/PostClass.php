@@ -1,7 +1,8 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/../Classes/NotificationClass.php';
 require_once __DIR__ . '/../app/models/index.php';
-class Post{
+class Post extends Notification{
     private $error = "";
     private Models $models;
 
@@ -38,6 +39,9 @@ class Post{
         $userTags = $this->parseUserTags($data['userTags'] ?? '');
 
         $postId    = $this->createPostID();
+        foreach($userTags as $userTag){
+            $this->createNotification($_SESSION['userID'],$userTag,'tag',$postId);
+        }
         $imagePath = '';
         $hasImage  = 0;
 
@@ -233,67 +237,11 @@ PHP;
     }
 
     public function deletePost($postId){
-        $this->models->deletePostAndEngagement($postId);
+        $this->models->deletePost($postId);
     }
 
     public function getUser($userId){
         return $this->models->getUserPostsByUserId($userId);
     }
 
-    public function isPromoted($postId, $userId) {
-        $result = $this->models->getEngagement($postId, 'promote');
-        if(!$result){
-            return false;
-        }
-        $userArray = json_decode($result['users'], true) ?? [];
-        return in_array($userId, $userArray);
-    }
-
-    /**
-     * $postType must be one of a known whitelist — it gets used to build a
-     * column name ("{$postType}s"), so an unvalidated value here is a SQL
-     * injection risk via the column name, not just a logic bug.
-     */
-    public function engage_post($postId, $postType, $userId) {
-        $allowedTypes = ['like', 'love', 'share', 'promote'];
-        if(!in_array($postType, $allowedTypes, true)){
-            $this->error = "Invalid engagement type.";
-            return false;
-        }
-
-        $column = $postType . 's';
-        $result  = $this->models->getEngagement($postId, $postType);
-
-        $userArray = [];
-        $engaged   = false;
-
-        if($result){
-            $userArray = json_decode($result['users'], true) ?? [];
-
-            if(in_array($userId, $userArray)){
-                $userArray = array_values(array_diff($userArray, [$userId]));
-                $engaged = false;
-            }else{
-                $userArray[] = $userId;
-                $engaged = true;
-            }
-
-            $this->models->updateEngagementUsers($postId, $postType, json_encode($userArray));
-        }else{
-            $userArray = [$userId];
-            $this->models->insertEngagement($postId, $postType, json_encode($userArray));
-            $engaged = true;
-        }
-
-        $this->models->adjustEngagementCount($postId, $column, $engaged);
-        return true;
-    }
-
-    public function getLikes($postId, $type) {
-        $result = $this->models->getEngagement($postId, $type);
-        if($result && isset($result['users'])){
-            return json_decode($result['users'], true) ?? [];
-        }
-        return [];
-    }
 }

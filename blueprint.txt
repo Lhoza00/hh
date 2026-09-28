@@ -1,0 +1,88 @@
+    1  whoami
+    2  git --version
+    3  sudo apt update
+    4  sudo apt upgrade -y
+    5  sudo apt install git -y
+    6  sudo apt install apache2 -y
+    7  sudo apt install php libapache2-mod-php php-mysql -y
+    8  php -v
+    9  sudo systemctl restart apache2
+   10  sudo nano /var/www/html/index.php
+   11  ls -la /var/www/html/index.php
+   12  sudo systemctl restart apache2
+   13  sudo systemctl enable apache2
+   14  sudo systemctl start apache2
+   15  sudo systemctl status apache2
+   16  curl http://localhost
+   17  sudo ss -tulpn | grep :80
+   18  curl 18.199.176.124
+   19  sudo chown -R admin:admin /var/www/html
+   20  whoami
+   21  sudo chown -R admin:admin /var/www/html
+   22  sudo chmod -R 755 /var/www/html
+   23  sudo nano /etc/apache2/sites-available/00-default.conf
+   24  sudo nano /etc/apache2/sites-available/000-default.conf
+   25  sudo a2enmod rewrite
+   26  sudo systemctl restart apache2
+   27  sudo apt update
+   28  sudo apt install phpadmin -y
+   29  sudo apt install phpmyadmin -y
+   30  sudo apt update
+   31  sudo apt install mariadb-server mariadb-client -y
+   32  sudo systemctl enable mariadb
+   33  sudo systemctl start mariadb
+   34  sudo mariadb-secure-installation
+   35  sudo mariadb
+   36  sudo apt install phpmyadmin -y
+   37  sudo ln -sf /usr/share/phpmyadmin /var/www/html/phpmyadmin
+   38  sudo systemctl restart apache2
+   39  sudo mariadb
+   40  sudo dpkg-reconfigure phpmyadmin
+   41  ls -la
+   42  cd /var/www/html
+   43  ls -al
+   44  sudo touch .htaccess
+   45  sudo nano .htaccess
+   46  ls -al
+   47  cd root
+   48  sudo nano .htaccess
+   49  sudo nano /etc/apache2/sites-available/000-default.config
+   50  sudo nano /etc/apache2/sites-available/000-default.conf
+   51  sudo a2enmod rewrite
+   52  sudo systemctl restart apache2
+   53  sudo nano /etc/apache2/sites-available/000-default.conf
+   54  sudo nano .htaccess
+   55  sudo a2enmod rewrite
+   56  sudo systemctl restart apache2
+   57  sudo apache2ctl configtest
+   58  sudo nano /etc/apache2/sites-available/000-default.conf
+   59  sudo systemctl restart apache2
+   60  sudo apache2ctl configtest
+   61  sudo nano /etc/apache2/sites-available/000-default.conf
+   62  sudo apache2ctl configtest
+   63  sudo systemctl restart apache2
+   64  sudo a2enmod rewrite
+   65  sudo systemctl restart apache2
+   66  sudo nano /etc/apache2/sites-available/000-default.conf
+   67  sudo systemctl restart apache2
+   68  sudo a2enmod rewrite
+   69  sudo systemctl restart apache2
+   70  sudo apache2ctl configtest
+   71  sudo systemctl restart apache2
+   72  sudo apache2ctl -S
+   73  grep -R "DocumentRoot" /etc/apache2/sites-enabled/
+   74  ls -la /var/www/html/root/.htaccess
+   75  sudo chmod 644 /var/www/html/root/.htaccess
+   76  sudo chmod 755 /var/www/html/root
+   77  curl -I http://localhost/
+   78  curl http://localhost/
+   79  curl -v http://localhost/
+   80  sudo tail -50 /var/log/apache2/error.log
+   81  git --version
+   82  cd /var/www
+   83  cd /html/root
+   84  cd /var/www/html/root/
+   85  ls -la
+   86  git status
+   87  history
+   88  history > ~/blueprint.txt
